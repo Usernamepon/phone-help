@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Необычные бренды и подбор смартфона</title>
+<style>
+:root{--bg:#f6f7fb;--fg:#16181d;--muted:#5d6472;--card:#fff;--line:#e1e4ec;--accent:#4f46e5;--accent-fg:#fff;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1115;--fg:#eef0f5;--muted:#9aa3b2;--card:#181b22;--line:#2a2f3a;--accent:#8b83ff;--accent-fg:#0f1115;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1115;--fg:#eef0f5;--muted:#9aa3b2;--card:#181b22;--line:#2a2f3a;--accent:#8b83ff;--accent-fg:#0f1115;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.55}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px}
+header{padding:48px 0 24px}
+h1{font-size:clamp(1.6rem,5.5vw,2.5rem);line-height:1.2;margin:0 0 14px}
+h2{font-size:1.5rem;margin:0 0 6px}
+.lead{color:var(--muted);font-size:1.05rem;max-width:640px}
+.btn{display:inline-block;background:var(--accent);color:var(--accent-fg);border:0;border-radius:12px;padding:12px 20px;font-size:1rem;font-weight:600;cursor:pointer;text-decoration:none}
+section{padding:28px 0}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:14px}
+.tile{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:left;font:inherit;cursor:pointer}
+.tile b{display:block;font-size:1.05rem}
+.tile span{font-size:.78rem;color:var(--muted)}
+.tile.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+#models{margin-top:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.card h3{margin:0 0 2px;font-size:1.1rem}
+.brand{color:var(--accent);font-size:.85rem;font-weight:600}
+.card p{margin:8px 0;font-size:.95rem}
+.spec{color:var(--muted);font-size:.85rem}
+.tag{display:inline-block;font-size:.75rem;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 0 0;color:var(--muted)}
+.quiz{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:14px}
+label{display:block;font-weight:600;margin:14px 0 6px}
+select{width:100%;padding:11px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-size:1rem}
+#result{margin-top:16px}
+.rank{font-weight:700;color:var(--accent)}
+.check li{margin-bottom:8px}
+footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
+.det{margin:8px 0;font-size:.85rem}
+.row{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-top:1px solid var(--line)}
+.row span{color:var(--muted)}
+.row b{text-align:right}
+.bats{display:flex;gap:14px;flex-wrap:wrap;margin:8px 0}
+.bt{display:flex;gap:6px;align-items:center;font-size:.75rem;color:var(--muted)}
+.bt b{display:block;color:var(--fg);font-size:.8rem}
+.bd{display:flex;align-items:flex-end;width:20px;height:40px;border:2px solid var(--muted);border-radius:5px;padding:1px;position:relative;font-style:normal}
+.bd:before{content:"";position:absolute;top:-6px;left:5px;width:6px;height:3px;background:var(--muted);border-radius:1px}
+.bf{display:block;width:100%;border-radius:2px;font-style:normal}
+
+/* ===== Подбор: чипы вместо серых списков, кнопки магазинов ===== */
+.quiz{padding:22px;border-radius:20px}
+.q{border:0;padding:0;margin:0 0 22px;min-width:0}
+.q legend{font-weight:700;font-size:1.05rem;padding:0;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative;display:block;margin:0;font-weight:500}
+.chip input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.chip span{display:flex;align-items:center;gap:8px;padding:10px 16px;border:1.5px solid var(--line);border-radius:999px;background:var(--bg);transition:background .15s,border-color .15s,color .15s}
+.chip:hover span{border-color:var(--accent)}
+.chip input:checked+span{background:var(--accent);border-color:var(--accent);color:var(--accent-fg);font-weight:600}
+.chip input:focus-visible+span{outline:3px solid var(--accent);outline-offset:2px}
+.shop{display:flex;gap:8px;margin-top:12px}
+.mk{flex:1;text-align:center;padding:10px;border-radius:10px;font-size:.85rem;font-weight:700;text-decoration:none}
+.mk.oz{background:#005bff;color:#fff}
+.mk.av{background:#04e061;color:#082414}
+@media (prefers-reduced-motion:reduce){.chip span{transition:none}}
+
+/* ===== Сравнение ===== */
+.cmp{position:relative;display:inline-block;margin:8px 8px 0 0}
+.cmp input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.cmp span{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid var(--line);border-radius:999px;font-size:.85rem;font-weight:600;background:var(--bg)}
+.cmp input:checked+span{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.cmp input:disabled+span{opacity:.45}
+.cmp input:disabled{cursor:not-allowed}
+.cmp input:focus-visible+span{outline:3px solid var(--accent);outline-offset:2px}
+#cmpbar{position:fixed;left:0;right:0;bottom:0;z-index:20;display:none;gap:10px;align-items:center;justify-content:space-between;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:var(--card);color:var(--fg);border-top:1px solid var(--line);box-shadow:0 -4px 16px rgba(0,0,0,.12)}
+#cmpbar>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.9rem}
+#cmpbar .bb{display:flex;gap:8px;flex:none}
+#cmpbar .btn[disabled]{opacity:.5;cursor:not-allowed}
+.btn2{padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:inherit;cursor:pointer}
+body.hascmp{padding-bottom:84px}
+#cmpdlg{border:0;padding:0;border-radius:20px;width:min(860px,96vw);max-height:90vh;overflow:auto;background:var(--card);color:var(--fg)}
+#cmpdlg::backdrop{background:rgba(0,0,0,.55)}
+.cw{padding:22px;position:relative}
+.cw h2{margin:0 44px 12px 0}
+.cx{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-size:1.4rem;cursor:pointer}
+.ct{width:100%;border-collapse:collapse;table-layout:fixed;font-size:.85rem}
+.ct th,.ct td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;overflow-wrap:anywhere}
+.ct th:first-child{width:27%;color:var(--muted);font-weight:600}
+.ct thead th{font-size:.9rem;color:var(--fg)}
+.best{background:color-mix(in srgb,#22c55e 24%,transparent);border-radius:6px;padding:1px 5px;font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>Необычные бренды, технологии и подбор смартфона по вашим приоритетам</h1>
+<p class="lead">Мир смартфонов шире двух самых известных брендов. Выберите бренд и посмотрите, какие модели у него есть.</p>
+<p><a class="btn" href="#picker">Подобрать смартфон</a></p>
+</header>
+
+<section id="brands">
+<h2>Бренды</h2>
+<p class="spec">Нажмите на бренд, чтобы увидеть модели.</p>
+<div class="tiles" id="tiles"></div>
+<div id="models"></div>
+</section>
+
+<section id="guide">
+<h2>Как читать характеристики</h2>
+<p class="spec">Краткие пояснения к значениям, которые указаны в карточках.</p>
+<div class="grid">
+<div class="card"><h3>🔍 Зум</h3>
+<p><b>Оптический зум</b> — увеличение за счёт отдельного объектива (телеобъектива). «3×» означает, что объект становится в 3 раза ближе, чем на основной камере, а изображение остаётся чётким. Если телеобъектива нет, в карточке указано «оптического нет».</p>
+<p><b>Цифровой зум</b> — программное увеличение: кадр обрезается и растягивается, поэтому качество снижается. Значения вроде «100×» заявлены производителями, при такой кратности снимки заметно хуже. Мы указываем их, только если их заявил производитель.</p>
+<p><b>Перископный телеобъектив</b> — телекамера, у которой линзы расположены вдоль корпуса, а свет попадает в них через зеркало или призму. Благодаря этому длинный объектив помещается в тонкий смартфон.</p>
+<p>Производители отсчитывают кратность по-разному (чаще от основной камеры, иногда от более широкой), поэтому цифры у разных марок можно сравнивать только примерно.</p></div>
+<div class="card"><h3>⚡ Как читать тесты мощности</h3>
+<p><b>AnTuTu</b> — один из тестов: он складывает в одну цифру процессор, графику, память и скорость интерфейса. Другие тесты, например <b>Geekbench</b>, отдельно измеряют процессор на одном ядре и на всех сразу. У каждого теста свои задачи, поэтому ни один не даёт полной картины, а процессоры могут опережать друг друга то в одном тесте, то в другом.</p>
+<p>Реальная скорость зависит ещё от охлаждения и оптимизации системы. Поэтому сверяйте мощность минимум по двум тестам: <a href="https://browser.geekbench.com/android-benchmarks" target="_blank" rel="noopener noreferrer">Geekbench</a> и <a href="https://nanoreview.net/" target="_blank" rel="noopener noreferrer">NanoReview</a> (там процессоры сравниваются сразу по AnTuTu и Geekbench).</p>
+<p><b>Про Huawei (Kirin).</b> В AnTuTu процессоры Kirin заметно уступают новым Snapdragon. В многоядерном Geekbench Kirin 9020 близок к Snapdragon 8 Gen 2, то есть к флагманскому процессору 2022 года, но не к самым новым моделям.</p></div>
+<div class="card"><h3>📷 Камера: три главные вещи</h3>
+<p><b>Диафрагма (f/1.8)</b> — отверстие, через которое свет попадает на сенсор. Чем оно шире, тем лучше фото при слабом освещении.</p>
+<p><b>Размер сенсора (1/1,3″)</b> — размер светочувствительной матрицы камеры. Чем она больше, тем больше света улавливает камера.</p>
+<p><b>Мегапиксели (50 Мп)</b> — количество точек в изображении. Это не главный показатель: 50 Мп с маленьким сенсором дают худшее качество, чем 50 Мп с большим.</p></div>
+<div class="card"><h3>🔢 Формула y = 1/x</h3>
+<p>И диафрагма, и сенсор записаны числом x, а настоящий размер равен y = 1/x. Как с дробями: 1/2 больше, чем 1/4.</p>
+<p><b>Чем больше y, тем лучше, а значит, чем меньше x в характеристиках, тем лучше.</b> Например, f/1.4 лучше f/2.4, а сенсор 1/1,3″ лучше 1/2,8″.</p></div>
+<div class="card"><h3>🔋 Индикатор в виде батареи</h3>
+<p>Рядом с цифрами показан индикатор в виде батареи. Чем он полнее и зеленее, тем лучше значение. Красный и почти пустой индикатор означает низкое значение.</p>
+<div class="bats" id="demo"></div></div>
+<div class="card"><h3>⚙️ Процессор и AnTuTu</h3>
+<p>Процессор — главный вычислительный блок смартфона. AnTuTu — тест, который оценивает процессор в баллах: чем больше баллов, тем выше производительность.</p>
+<p>До 500 тыс. — низкий уровень. До 1 млн — средний. От 1 млн — высокий. От 3 млн — очень высокий. В разных источниках и версиях теста значения немного отличаются, поэтому ориентируйтесь на порядок цифр.</p></div>
+<div class="card"><h3>📐 Диагональ экрана</h3>
+<p>Диагональ — расстояние между противоположными углами экрана, в дюймах (1″ = 2,54 см). Чем она больше, тем удобнее смотреть видео и играть, но тем тяжелее смартфон и менее удобно держать его в руке.</p>
+<p>До 6,4″ — компактный, 6,4–6,75″ — средний, больше — большой.</p></div>
+</div>
+</section>
+
+<section id="picker">
+<h2>Подбор смартфона</h2>
+<p class="lead">Ответьте на три вопроса, и сайт предложит три подходящие модели.</p>
+<div class="quiz">
+<fieldset class="q"><legend>Что для вас главное?</legend><div class="chips"><label class="chip"><input type="radio" name="q1" value="camera" checked><span>📷 Фото и видео</span></label><label class="chip"><input type="radio" name="q1" value="gaming"><span>🎮 Игры</span></label><label class="chip"><input type="radio" name="q1" value="battery"><span>🔋 Батарея и зарядка</span></label><label class="chip"><input type="radio" name="q1" value="unique"><span>✨ Необычный дизайн</span></label></div></fieldset>
+<fieldset class="q"><legend>Какой бюджет?</legend><div class="chips"><label class="chip"><input type="radio" name="q2" value="0" checked><span>Любой</span></label><label class="chip"><input type="radio" name="q2" value="1"><span>до 20 тыс. ₽</span></label><label class="chip"><input type="radio" name="q2" value="2"><span>20–35 тыс. ₽</span></label><label class="chip"><input type="radio" name="q2" value="3"><span>35–50 тыс. ₽</span></label><label class="chip"><input type="radio" name="q2" value="4"><span>от 50 тыс. ₽</span></label></div></fieldset>
+<fieldset class="q"><legend>Нужно что-то совсем необычное?</legend><div class="chips"><label class="chip"><input type="radio" name="q3" value="no" checked><span>Не обязательно</span></label><label class="chip"><input type="radio" name="q3" value="yes"><span>Да, нужна необычная модель</span></label></div></fieldset>
+<p><button class="btn" id="go" type="button">Подобрать</button></p>
+<p class="spec">Цены ориентировочные: округлены до 5 тыс. ₽ и зависят от продавца, версии памяти и региона.</p>
+</div>
+<div id="result"></div>
+</section>
+
+<section id="check">
+<h2>Что проверить перед покупкой</h2>
+<ul class="check">
+<li><b>Сети.</b> Убедитесь, что смартфон поддерживает частоты вашего оператора.</li>
+<li><b>Гарантия.</b> Уточните, кто предоставляет гарантию и где обслуживают смартфон.</li>
+<li><b>Где купить.</b> Необычные модели продаются не везде: сравните продавцов и отзывы.</li>
+<li><b>Обновления.</b> Узнайте, на какой срок производитель обещает обновления.</li>
+</ul>
+</section>
+
+<footer>Учебный проект. Характеристики собраны из открытых источников (данные на ноябрь 2026) и могут отличаться в разных регионах: перед покупкой сверяйте их с официальным сайтом производителя. Ценовые категории ориентировочные.</footer>
+</div>
+
+<script>
+// ===== МОДЕЛИ =====
+// Одна модель = одна строка:
+// ["Название", цена ₽ (примерно), "теги", диагональ ″, "экран", "процессор", основная камера Мп, сенсор x (1/x″; 1 = 1″), диафрагма f, "батарея мА·ч", "зарядка Вт", AnTuTu (млн), "описание", "особенности"]
+// Нет данных: 0 или "". Теги: camera (фото), gaming (игры), battery (батарея), unique (необычное).
+// Ценовая категория считается сама по цене: до 20 тыс., 20–35, 35–50, от 50 тыс. ₽.
+var B=[
+{n:"Vivo",s:"",m:[
+["X200 Pro", 62000, "camera battery", 6.78, "LTPO AMOLED 120 Гц", "Dimensity 9400", 50, 1.28, 1.6, "6000", "90", 2.9, "Флагман с акцентом на фотографию: оптика ZEISS и мощный зум.", "телеобъектив 200 Мп · оптика ZEISS"],
+["X200 Ultra", 78000, "camera", 6.82, "2K LTPO AMOLED 120 Гц", "Snapdragon 8 Elite", 50, 1.28, 1.69, "6000", "90", 3.1, "Модель серии с наиболее развитой камерой: сенсор Sony LYT-818 и мощный зум.", "телеобъектив 200 Мп · оптика ZEISS"],
+["X200 Pro mini", 55000, "camera unique", 6.31, "LTPO AMOLED 120 Гц", "Dimensity 9400", 50, 1.28, 1.6, "5700", "90", 2.9, "Редкая компактная флагманская модель: флагманская аппаратная часть в небольшом корпусе.", ""]]},
+{n:"iQOO",s:"суббренд Vivo",m:[
+["15", 52000, "gaming battery", 6.85, "2K LTPO AMOLED 144 Гц", "Snapdragon 8 Elite Gen 5", 50, 1.56, 1.9, "7000", "100", 3.8, "Игровой флагман с батареей большой ёмкости и эффективным охлаждением.", "отдельный игровой чип Q3"],
+["Z9 Turbo", 22000, "gaming battery", 6.78, "AMOLED 144 Гц", "Snapdragon 8s Gen 3", 50, 1.95, 1.79, "6000", "80", 1.6, "Бюджетный телефон с очень мощным процессором.", ""],
+["Neo 10", 28000, "gaming battery", 6.78, "AMOLED 144 Гц", "Snapdragon 8 Gen 3 (Китай)", 50, 1.95, 1.88, "6100", "120", 2.1, "Мощный игровой телефон среднего уровня.", "в версии для Индии: Snapdragon 8s Gen 4 и 7000 мА·ч"]]},
+{n:"Honor",s:"",m:[
+["Magic8 Pro", 70000, "camera battery", 6.71, "LTPO OLED 120 Гц", "Snapdragon 8 Elite Gen 5", 50, 1.3, 1.6, "7200", "100", 3.8, "Флагман с мощной камерой и батареей большой ёмкости (ёмкость зависит от региона).", "телеобъектив 200 Мп · ёмкость батареи зависит от региона"],
+["WIN RT", 44000, "gaming battery", 6.83, "OLED 185 Гц", "Snapdragon 8 Elite", 50, 1.56, 2.0, "10000", "100", 3.6, "Игровой телефон с рекордной батареей и активным охлаждением.", "вентилятор охлаждения · защита IP69"],
+["200 Pro", 38000, "camera", 6.78, "OLED 120 Гц", "Snapdragon 8s Gen 3", 50, 1.3, 1.9, "5200", "100", 1.6, "Телефон для портретов с хорошим телеобъективом.", ""]]},
+{n:"Sharp",s:"Япония",m:[
+["Aquos R9 Pro", 70000, "camera unique", 6.7, "OLED до 240 Гц", "Snapdragon 8s Gen 3", 50, 1.0, 1.8, "5000", "32", 1.6, "Крупный сенсор и очень плавный экран.", "камера Leica · экран до 240 Гц"],
+["Aquos R8 Pro", 45000, "camera unique", 6.6, "OLED до 240 Гц", "Snapdragon 8 Gen 2", 47, 1.0, 1.9, "5000", "27", 1.5, "Предыдущее поколение с той же большой камерой.", "камера Leica с сенсором 1″"],
+["Aquos R7", 30000, "camera unique", 6.6, "OLED до 240 Гц", "Snapdragon 8 Gen 1", 47, 1, 1.9, "5000", "", 1.0, "Флагманская модель Sharp прошлых лет с камерой 1″ и экраном 240 Гц.", ""]]},
+{n:"Meizu",s:"",m:[
+["Lucky 08", 19000, "battery", 6.78, "LTPO AMOLED до 144 Гц", "Snapdragon 7s Gen 2", 108, 1.67, 1.7, "6000", "45", 0.6, "Недорогая модель с батареей большой ёмкости и функциями искусственного интеллекта Flyme.", ""],
+["21 Pro", 45000, "camera unique", 6.79, "2K LTPO AMOLED 120 Гц", "Snapdragon 8 Gen 3", 50, 1.3, 1.9, "5050", "80", 2.1, "Флагман с лаконичным интерфейсом Flyme.", ""],
+["21", 32000, "unique", 6.55, "OLED 120 Гц", "Snapdragon 8 Gen 3", 200, 1.4, 1.7, "4800", "67", 2.1, "Компактный флагман в более простом исполнении.", ""]]},
+{n:"OnePlus",s:"",m:[
+["Ace 2", 28000, "gaming battery", 6.74, "AMOLED 120 Гц", "Snapdragon 8+ Gen 1", 50, 1.56, 1.8, "5000", "100", 1.1, "Игровая модель для Китая, в Индии продавалась как OnePlus 11R.", ""],
+["15R", 48000, "battery gaming", 6.83, "AMOLED 165 Гц", "Snapdragon 8 Gen 5", 50, 1.56, 1.8, "7400", "80", 3.0, "Производительная модель с батареей большой ёмкости и экраном 165 Гц.", "экран 165 Гц · система охлаждения Cryo-Velocity"],
+["16", 72000, "battery gaming camera", 6.78, "LTPO OLED до 185 Гц", "Snapdragon 8 Elite Extreme Gen 6", 200, 1.4, 1.6, "9000", "100", 5.4, "Флагман с самой большой батареей в истории OnePlus. Пока продаётся только в Китае.", "аккумулятор 9000 мА·ч"]]},
+{n:"ROG Phone",s:"ASUS",m:[
+["9", 80000, "gaming battery", 6.78, "AMOLED 185 Гц", "Snapdragon 8 Elite", 50, 1.56, 1.9, "5800", "65", 3.1, "Игровой флагман с плечевыми триггерами AirTrigger.", "плечевые триггеры AirTrigger"],
+["9 Pro", 95000, "gaming battery unique", 6.78, "AMOLED 185 Гц", "Snapdragon 8 Elite", 50, 1.56, 1.9, "5800", "65", 3.1, "Версия с матрицей светодиодов AniMe Vision на задней панели.", "AirTrigger · светодиодная матрица AniMe Vision"],
+["7", 50000, "gaming", 6.78, "AMOLED 165 Гц", "Snapdragon 8 Gen 2", 50, 1.56, 1.9, "6000", "65", 1.5, "Прошлое поколение игрового ROG, до сих пор мощный.", "плечевые триггеры AirTrigger"]]},
+{n:"RedMagic",s:"суббренд nubia",m:[
+["10 Air", 42000, "gaming unique", 6.8, "AMOLED 120 Гц", "Snapdragon 8 Gen 3", 50, 1.55, 1.9, "6000", "80", 2.1, "Игровой телефон в тонком и лёгком корпусе.", "две основные камеры по 50 Мп (основная и сверхширокоугольная) · камера под экраном 16 Мп"],
+["11 Pro", 65000, "gaming battery unique", 6.85, "AMOLED 144 Гц", "Snapdragon 8 Elite Gen 5", 50, 1.55, 1.9, "7500", "80", 3.9, "Игровой флагман с вентилятором и камерой под экраном.", "вентилятор · камера под экраном"],
+["8 Pro", 33000, "gaming", 6.8, "AMOLED 120 Гц", "Snapdragon 8 Gen 2", 50, 1.57, 1.9, "6000", "65", 1.5, "Игровой телефон 2023 года: охлаждение и экран без выреза.", "вентилятор · камера под экраном"]]},
+{n:"nubia",s:"бренд ZTE",m:[
+["Z80 Ultra", 58000, "camera unique", 6.85, "AMOLED 144 Гц", "Snapdragon 8 Elite Gen 5", 50, 1.3, 1.7, "7200", "80", 3.8, "Флагман без выреза с полноценными камерами.", "камера под экраном"],
+["Z60 Ultra", 45000, "camera unique", 6.8, "AMOLED 120 Гц", "Snapdragon 8 Gen 3", 50, 1.49, 1.6, "6000", "80", 2.1, "Прошлый флагман с экраном без выреза.", "камера под экраном"],
+["Z50S Pro", 30000, "camera", 6.78, "AMOLED 120 Гц", "Snapdragon 8 Gen 2", 50, 1.49, 1.6, "5100", "80", 1.5, "Флагман с акцентом на фотосъёмку.", ""]]},
+{n:"POCO",s:"суббренд Xiaomi",m:[
+["F8 Ultra", 62000, "gaming camera", 6.9, "AMOLED 120 Гц", "Snapdragon 8 Elite Gen 5", 50, 1.31, 1.67, "6500", "100", 3.9, "Флагманские характеристики по цене ниже, чем у многих известных брендов.", "перископный телеобъектив 50 Мп (5×) · беспроводная зарядка 50 Вт"],
+["X7 Pro", 27000, "battery gaming", 6.67, "AMOLED 120 Гц", "Dimensity 8400-Ultra", 50, 1.95, 1.5, "6000", "90", 1.7, "Производительная и недорогая модель с батареей большой ёмкости.", ""],
+["F7 Ultra", 45000, "gaming", 6.67, "AMOLED 2K 120 Гц", "Snapdragon 8 Elite", 50, 1.55, 1.6, "5300", "120", 3.1, "Мощная аппаратная часть и очень быстрая зарядка по средней цене.", ""]]},
+{n:"OPPO",s:"",m:[
+["Find X7 Ultra", 60000, "camera", 6.82, "LTPO AMOLED 120 Гц", "Snapdragon 8 Gen 3", 50, 1.0, 1.8, "5400", "100", 2.1, "Две перископные камеры и крупный основной сенсор.", "две перископные камеры"],
+["Find X8 Pro", 62000, "camera battery", 6.78, "LTPO AMOLED 120 Гц", "Dimensity 9400", 50, 1.4, 1.6, "5910", "80", 2.9, "Камеры Hasselblad и два телеобъектива.", "две перископные камеры"],
+["Find X9 Ultra", 100000, "camera", 6.82, "2K AMOLED 144 Гц", "Snapdragon 8 Elite Gen 5", 200, 1.12, 1.5, "7050", "100", 4.0, "Флагман с акцентом на камеру: два телеобъектива.", "две перископные камеры: 200 Мп (3×) и 50 Мп (10×)"]]},
+{n:"Huawei",s:"без сервисов Google",m:[
+["Pura 80 Ultra", 115000, "camera unique", 6.8, "LTPO OLED 120 Гц", "Kirin 9020", 50, 1.0, 1.6, "5170–5700", "100", 1.3, "Камера с сенсором 1″ и переключаемым телеобъективом.", "переключаемый телеобъектив · диафрагма f/1.6–4.0 · без сервисов Google"],
+["P60 Pro", 45000, "camera", 6.67, "LTPO OLED 120 Гц", "Snapdragon 8+ Gen 1", 48, 1.4, 1.4, "4815", "88", 1.1, "Флагман 2023 года с акцентом на фотографию и переменной диафрагмой.", "переменная диафрагма f/1.4–4.0 · без сервисов Google"],
+["Pura 90s Pro Max", 90000, "camera unique", 6.9, "LTPO OLED 120 Гц", "Kirin 9030S", 50, 1.28, 1.4, "5270–6000", "100", 1.3, "Флагман с акцентом на фотографию: телеобъектив 200 Мп и защита IP68/IP69.", "телеобъектив 200 Мп · переменная диафрагма · без сервисов Google"]]},
+{n:"Nothing Phone",s:"Nothing",m:[
+["(1)", 18000, "unique", 6.55, "OLED 120 Гц", "Snapdragon 778G+", 50, 1.56, 1.88, "4500", "33", 0.6, "Первый телефон Nothing: прозрачная панель и подсветка Glyph.", "прозрачная панель · подсветка Glyph"],
+["(3)", 55000, "unique camera", 6.67, "AMOLED 120 Гц", "Snapdragon 8s Gen 4", 50, 1.57, 1.68, "5150", "65", 2.0, "Флагман с матрицей светодиодов на задней панели.", "Glyph Matrix на задней панели"],
+["(3a)", 28000, "unique camera", 6.77, "AMOLED 120 Гц", "Snapdragon 7s Gen 3", 50, 1.57, 1.88, "5000", "50", 0.8, "Доступная модель с фирменным дизайном и зумом.", "подсветка Glyph"]]},
+{n:"CMF",s:"суббренд Nothing",m:[
+["Phone 1", 17000, "unique battery", 6.67, "AMOLED 120 Гц", "Dimensity 7300", 50, 1.95, 1.8, "5000", "33", 0.7, "Сменные задние панели и выразительный дизайн по доступной цене.", "сменные задние панели"],
+["Phone 2 Pro", 21000, "unique camera", 6.77, "AMOLED 120 Гц", "Dimensity 7300 Pro", 50, 2.76, 1.88, "5000", "33", 0.7, "Недорогой телефон с телеобъективом и яркими цветами.", ""]]},
+{n:"Motorola",s:"",m:[
+["Signature", 74000, "camera unique", 6.8, "LTPO AMOLED 165 Гц", "Snapdragon 8 Gen 5", 50, 1.28, 1.6, "5200", "90", 3.1, "Флагман с тканевой задней панелью, защитой от воды и стандартом MIL-STD-810H.", "тканевая панель · IP69 · MIL-STD-810H"],
+["Razr Fold", 150000, "unique", 8.1, "складной · внутренний LTPO 120 Гц · внешний 6,6″ 165 Гц", "Snapdragon 8 Gen 5", 50, 1.28, 1.6, "6000", "80", 3.0, "Складной смартфон-«книжка» Motorola.", "три камеры по 50 Мп (есть телеобъектив 3×) · внутренний экран 8,1″"],
+["Edge 70 Max", 55000, "battery", 6.82, "2K LTPO AMOLED 144 Гц", "Snapdragon 8 Gen 5", 50, 1.56, 1.8, "7100", "90", 3.0, "Большая батарея и быстрая зарядка.", "беспроводная зарядка Qi2 · IP68/IP69"]]}
+];
+var TN=["","до 20 тыс. ₽","20–35 тыс. ₽","35–50 тыс. ₽","от 50 тыс. ₽"];
+var TG={camera:"фото",gaming:"игры",battery:"батарея",unique:"необычное"};
+function tier(p){return p<20000?1:p<35000?2:p<50000?3:4}
+function fx(n){return String(n).replace(".",",")}
+function cl(v){return Math.max(5,Math.min(100,Math.round(v)))}
+function bat(p,t,v){return '<div class="bt"><i class="bd"><i class="bf" style="height:'+p+'%;background:hsl('+Math.round(p*1.2)+',75%,45%)"></i></i><span><b>'+v+'</b>'+t+'</span></div>'}
+function anP(a){return cl(a<5e5?a/5e5*15:a<1e6?15+(a-5e5)/5e5*30:45+Math.min((a-1e6)/3e6,1)*55)}
+function anT(a){return a<5e5?"низкий уровень":a<1e6?"средний уровень":a<3e6?"высокий уровень":"очень высокий уровень"}
+function row(k,v){return '<div class="row"><span>'+k+'</span><b>'+v+'</b></div>'}
+function det(b,m){
+var d=m[3],a=m[11]*1e6,h="",bt="";
+h+=row("Диагональ",fx(d)+'″ ('+(d<6.4?"компактный":d<6.75?"средний":"большой")+')');
+h+=row("Экран",m[4]);
+h+=row("Процессор",m[5]+(a?' (AnTuTu ≈ '+fx(m[11].toFixed(1))+' млн)':''));
+h+=row("Основная камера",m[6]+' Мп · сенсор '+(m[7]?(m[7]===1?'1':'1/'+fx(m[7]))+'″':'—')+' · f/'+(m[8]||'—'));
+h+=row("Зум",zt(b+" "+m[0]));h+=row("Батарея",m[9]+' мА·ч'+(m[10]?' · зарядка '+m[10]+' Вт':''));
+h+=row("Цена","≈ "+fx(m[1]/1000)+" тыс. ₽");
+if(m[13])h+=row("Фишки",m[13]);
+if(m[8])bt+=bat(cl((1/m[8]-0.417)/0.297*100),"диафрагма","f/"+m[8]);
+if(m[7])bt+=bat(cl((1/m[7]-0.36)/0.64*100),"сенсор",m[7]===1?'1″':'1/'+fx(m[7])+'″');
+if(a)bt+=bat(anP(a),"AnTuTu: "+anT(a),fx(m[11].toFixed(1))+" млн");
+return '<div class="det">'+h+(bt?'<div class="bats">'+bt+'</div>':'')+'</div>';
+}
+var SEL=[],IDX={};
+B.forEach(function(b){b.m.forEach(function(m){IDX[b.n+" "+m[0]]=[b.n,m]})});
+// Зум: [оптический зум ×, цифровой зум ×]. 0 = оптического нет, null = ещё не сверено, цифровой 0 = производитель не заявлял
+var ZM={"Vivo X200 Pro":[3.7,100],"Vivo X200 Ultra":[3.7,0],"Vivo X200 Pro mini":[3,0],"iQOO 15":[3,0],"iQOO Z9 Turbo":[0,0],"iQOO Neo 10":[0,0],
+"Honor Magic8 Pro":[3.7,100],"Honor WIN RT":[0,0],"Honor 200 Pro":[2.5,0],"Sharp Aquos R9 Pro":[2.8,20],"Sharp Aquos R8 Pro":[0,0],"Sharp Aquos R7":[0,0],
+"Meizu Lucky 08":[0,0],"Meizu 21 Pro":[3,30],"Meizu 21":[0,0],"OnePlus Ace 2":[0,0],"OnePlus 15R":[0,0],"OnePlus 16":[3,0],
+"ROG Phone 9":[3,0],"ROG Phone 9 Pro":[3,0],"ROG Phone 7":[0,0],"RedMagic 10 Air":[0,0],"RedMagic 11 Pro":[0,0],"RedMagic 8 Pro":[0,0],
+"nubia Z80 Ultra":[2.7,0],"nubia Z60 Ultra":[3.3,0],"nubia Z50S Pro":[3.1,0],"POCO F8 Ultra":[5,0],"POCO X7 Pro":[0,0],"POCO F7 Ultra":[2.5,0],
+"OPPO Find X7 Ultra":[6,0],"OPPO Find X8 Pro":[6,0],"OPPO Find X9 Ultra":[10,0],"Huawei Pura 80 Ultra":[9.4,0],"Huawei P60 Pro":[3.5,0],"Huawei Pura 90s Pro Max":[4,100],
+"Nothing Phone (1)":[0,0],"Nothing Phone (3)":[3,0],"Nothing Phone (3a)":[2,0],"CMF Phone 1":[0,0],"CMF Phone 2 Pro":[2,0],
+"Motorola Signature":[3,100],"Motorola Razr Fold":[3,100],"Motorola Edge 70 Max":[0,0]};
+function zt(k){var z=ZM[k];if(!z||z[0]===null)return "уточняется";
+return (z[0]?'оптический до '+fx(z[0])+'×':'оптического нет, только цифровой')+(z[1]?' · цифровой до '+z[1]+'× (заявлено)':'')}
+function cmpChip(k){var on=SEL.indexOf(k)>-1;
+return '<label class="cmp"><input type="checkbox" class="cmpc" data-k="'+k+'"'+(on?' checked':'')+(!on&&SEL.length>=3?' disabled':'')+'><span>⚖️ Сравнить</span></label>'}
+var CR=[
+["Цена",function(m){return m[1]},function(m){return "≈ "+fx(m[1]/1000)+" тыс. ₽"},"min"],
+["Диагональ",function(m){return m[3]},function(m){return fx(m[3])+"″"}],
+["Экран",null,function(m){return m[4]}],
+["Процессор",null,function(m){return m[5]}],
+["AnTuTu",function(m){return m[11]||null},function(m){return m[11]?"≈ "+fx(m[11].toFixed(1))+" млн":"—"},"max"],
+["Основная камера",null,function(m){return m[6]+" Мп"}],
+["Сенсор",function(m){return m[7]||null},function(m){return m[7]?(m[7]===1?"1″":"1/"+fx(m[7])+"″"):"—"},"min"],
+["Диафрагма",function(m){return m[8]||null},function(m){return m[8]?"f/"+m[8]:"—"},"min"],
+["Оптический зум",function(m,k){var z=ZM[k];return z&&z[0]!==null?z[0]:null},function(m,k){var z=ZM[k];return !z||z[0]===null?"уточняется":z[0]?fx(z[0])+"×":"нет"},"max"],
+["Батарея",function(m){return parseInt(m[9],10)},function(m){return m[9]+" мА·ч"},"max"],
+["Зарядка",function(m){return m[10]?parseInt(m[10],10):null},function(m){return m[10]?m[10]+" Вт":"—"},"max"]
+];
+var KN='<p class="spec"><b>Про Kirin (Huawei).</b> В тесте AnTuTu процессоры Kirin заметно ниже новых Snapdragon, а в многоядерном Geekbench Kirin 9020 близок к Snapdragon 8 Gen 2. Один тест не даёт полной картины, поэтому ориентируйтесь на несколько: см. «Как читать тесты мощности».</p>';
+function showCmp(){
+var ks=SEL.slice(),t='<div class="cw"><button type="button" class="cx" data-close aria-label="Закрыть">×</button><h2>⚖️ Сравнение</h2><div style="overflow-x:auto"><table class="ct"><thead><tr><th></th>';
+ks.forEach(function(k){t+='<th>'+k+'</th>'});
+t+='</tr></thead><tbody>';
+CR.forEach(function(r){
+var vals=ks.map(function(k){return r[1]?r[1](IDX[k][1],k):null});
+var nums=vals.filter(function(v){return v!==null&&!isNaN(v)}),best=null;
+if(r[3]&&nums.length>1){var mx=Math.max.apply(null,nums),mn=Math.min.apply(null,nums);if(mx!==mn)best=r[3]==="max"?mx:mn}
+t+='<tr><th scope="row">'+r[0]+'</th>';
+ks.forEach(function(k,i){var x=r[2](IDX[k][1],k);t+='<td>'+(best!==null&&vals[i]===best?'<span class="best">✓ '+x+'</span>':x)+'</td>'});
+t+='</tr>';
+});
+cmp.innerHTML=t+'</tbody></table></div>'+(ks.some(function(k){return /Kirin/.test(IDX[k][1][5])})?KN:'')+'<p class="spec">✓ — лучшее значение в строке. У сенсора (1/x) и диафрагмы (f/x) лучше то, где число меньше.</p></div>';
+cmp.showModal();
+}
+function upd(){
+document.querySelectorAll(".cmpc").forEach(function(c){var on=SEL.indexOf(c.getAttribute("data-k"))>-1;c.checked=on;c.disabled=!on&&SEL.length>=3});
+bar.style.display=SEL.length?"flex":"none";
+document.body.classList.toggle("hascmp",SEL.length>0);
+bar.innerHTML='<span>'+SEL.join(" · ")+'</span><span class="bb"><button type="button" class="btn" data-go'+(SEL.length<2?' disabled':'')+'>'+(SEL.length<2?'Выберите ещё':'Сравнить')+'</button><button type="button" class="btn2" data-reset>Сбросить</button></span>';
+}
+function card(b,m,extra){
+var tg=m[2].split(" ").filter(Boolean).map(function(x){return '<span class="tag">'+TG[x]+'</span>'}).join("");
+var q=encodeURIComponent(b+" "+m[0]),t=' target="_blank" rel="noopener noreferrer"';
+return '<div class="card">'+(extra||"")+'<div class="brand">'+b+'</div><h3>'+m[0]+'</h3><p>'+m[12]+'</p>'+det(b,m)+tg+'<span class="tag">'+TN[tier(m[1])]+'</span>'+cmpChip(b+" "+m[0])+'<div class="shop"><a class="mk oz" href="https://www.ozon.ru/search/?text='+q+'&from_global=true"'+t+'>Искать на Ozon</a><a class="mk av" href="https://www.avito.ru/rossiya/telefony?q='+q+'"'+t+'>Искать на Avito</a></div></div>';
+}
+document.getElementById("demo").innerHTML=bat(10,"низкое","")+bat(50,"среднее","")+bat(95,"высокое","");
+var tiles=document.getElementById("tiles"),panel=document.getElementById("models");
+B.forEach(function(b,i){
+var t=document.createElement("button");
+t.type="button";t.className="tile";
+t.innerHTML="<b>"+b.n+"</b><span>"+(b.s||"&nbsp;")+"</span>";
+t.onclick=function(){
+Array.prototype.forEach.call(tiles.children,function(x){x.classList.remove("on")});
+t.classList.add("on");
+var h="<h2>"+b.n+"</h2><div class='grid'>";
+b.m.forEach(function(m){h+=card(b.n,m)});
+panel.innerHTML=h+"</div>";
+panel.scrollIntoView({behavior:"smooth",block:"start"});
+};
+tiles.appendChild(t);
+});
+document.getElementById("go").onclick=function(){
+function v(n){return document.querySelector('input[name="'+n+'"]:checked').value}
+var pri=v("q1"),bud=parseInt(v("q2"),10),odd=v("q3")==="yes",all=[];
+B.forEach(function(b){b.m.forEach(function(m){
+if(bud!==0&&tier(m[1])!==bud)return;
+var s=0,tg=m[2].split(" ");
+if(tg.indexOf(pri)>-1)s+=4;
+if(odd&&tg.indexOf("unique")>-1)s+=2;
+all.push({b:b.n,m:m,s:s});
+})});
+all.sort(function(a,c){return c.s-a.s});
+var out="<h2>Вам подойдёт</h2>";
+if(!all.length)out+="<p class='spec'>В этой ценовой категории ничего не нашлось.</p>";
+else if(all[0].s<4)out+="<p class='spec'>Точных совпадений нет, показаны ближайшие модели в этом бюджете.</p>";
+out+="<div class='grid'>";
+all.slice(0,3).forEach(function(x,i){out+=card(x.b,x.m,'<div class="rank">№'+(i+1)+'</div>')});
+var r=document.getElementById("result");
+r.innerHTML=out+"</div>";
+r.scrollIntoView({behavior:"smooth",block:"start"});
+};
+var cmp=document.createElement("dialog"),bar=document.createElement("div");
+cmp.id="cmpdlg";bar.id="cmpbar";document.body.appendChild(cmp);document.body.appendChild(bar);
+document.addEventListener("change",function(e){
+var c=e.target;if(!c.classList||!c.classList.contains("cmpc"))return;
+var k=c.getAttribute("data-k"),i=SEL.indexOf(k);
+if(c.checked&&i<0&&SEL.length<3)SEL.push(k);else if(!c.checked&&i>-1)SEL.splice(i,1);
+upd();
+});
+document.addEventListener("click",function(e){
+var t=e.target;if(!t.closest)return;
+if(t.closest("[data-go]")&&SEL.length>1){showCmp();return}
+if(t.closest("[data-reset]")){SEL=[];upd();return}
+if(t===cmp||t.closest("[data-close]"))cmp.close();
+});
+</script>
+</body>
+</html>
